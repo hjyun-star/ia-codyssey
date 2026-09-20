@@ -41,10 +41,38 @@ def get_default_prompts():
     ]
 
 
+def show_menu():
+    """메인 메뉴를 화면에 출력합니다."""
+    print("\n=== 나만의 프롬프트 관리 ===")
+    print("1. 프롬프트 추가")
+    print("2. 프롬프트 목록")
+    print("3. 카테고리별 조회")
+    print("4. 프롬프트 검색")
+    print("5. 프롬프트 상세 보기")
+    print("6. 즐겨찾기 관리")
+    print("7. 즐겨찾기 목록")
+    print("0. 종료")
+
+
+def get_non_empty_input(prompt_message):
+    """빈 값이 입력되면 다시 입력을 요청합니다."""
+    while True:
+        value = input(prompt_message).strip()
+        if value:
+            return value
+        print("입력값이 비어있습니다. 다시 입력해주세요.")
+
+
 def main():
     prompts = get_default_prompts()
-    print("나만의 프롬프트 관리 프로그램을 시작합니다.")
     print(f"현재 등록된 프롬프트 수: {len(prompts)}개")
+
+    # 아직 메뉴 선택 로직은 없고, 메뉴가 출력되는지만 확인하는 임시 코드입니다.
+    show_menu()
+
+    # get_non_empty_input()이 잘 동작하는지 확인하는 임시 테스트 코드
+    test_value = get_non_empty_input("테스트 입력 (빈 값 입력해보세요): ")
+    print(f"입력하신 값: {test_value}")
 
 
 if __name__ == "__main__":
