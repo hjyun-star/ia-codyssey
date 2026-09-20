@@ -63,16 +63,49 @@ def get_non_empty_input(prompt_message):
         print("입력값이 비어있습니다. 다시 입력해주세요.")
 
 
+def select_category():
+    """미리 정의된 카테고리 중 선택하거나 직접 입력합니다."""
+    print("\n카테고리 선택:")
+    for idx, category in enumerate(CATEGORIES, start=1):
+        print(f"{idx}) {category}")
+    print(f"{len(CATEGORIES) + 1}) 직접 입력")
+
+    choice = input("선택: ").strip()
+    if choice.isdigit():
+        choice_num = int(choice)
+        if 1 <= choice_num <= len(CATEGORIES):
+            return CATEGORIES[choice_num - 1]
+        if choice_num == len(CATEGORIES) + 1:
+            return get_non_empty_input("카테고리 이름 입력: ")
+
+    print("잘못된 입력입니다. '기타'로 등록합니다.")
+    return "기타"
+
+
+def add_prompt(prompts):
+    """새로운 프롬프트를 등록합니다."""
+    print("\n=== 프롬프트 추가 ===")
+    title = get_non_empty_input("제목: ")
+    content = get_non_empty_input("내용: ")
+    category = select_category()
+
+    prompts.append({
+        "title": title,
+        "content": content,
+        "category": category,
+        "favorite": False,
+    })
+    print("\n프롬프트가 추가되었습니다!")
+
+
 def main():
     prompts = get_default_prompts()
-    print(f"현재 등록된 프롬프트 수: {len(prompts)}개")
 
-    # 아직 메뉴 선택 로직은 없고, 메뉴가 출력되는지만 확인하는 임시 코드입니다.
+    # 아직 메뉴 선택 분기(if/elif)는 만들지 않고,
+    # add_prompt()가 잘 동작하는지 확인하기 위한 임시 호출입니다.
     show_menu()
-
-    # get_non_empty_input()이 잘 동작하는지 확인하는 임시 테스트 코드
-    test_value = get_non_empty_input("테스트 입력 (빈 값 입력해보세요): ")
-    print(f"입력하신 값: {test_value}")
+    add_prompt(prompts)
+    print(f"\n현재 등록된 프롬프트 수: {len(prompts)}개")
 
 
 if __name__ == "__main__":
