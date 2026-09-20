@@ -98,15 +98,29 @@ def add_prompt(prompts):
     print("\n프롬프트가 추가되었습니다!")
 
 
+def format_prompt_line(index, prompt):
+    """목록에 표시할 한 줄 형식을 만듭니다."""
+    star = " ⭐" if prompt["favorite"] else ""
+    return f"{index}. [{prompt['category']}] {prompt['title']}{star}"
+
+
+def show_list(prompts):
+    """저장된 모든 프롬프트를 번호와 함께 출력합니다."""
+    print("\n=== 프롬프트 목록 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    for idx, prompt in enumerate(prompts, start=1):
+        print(format_prompt_line(idx, prompt))
+    print(f"\n총 {len(prompts)}개의 프롬프트")
+
+
 def main():
     prompts = get_default_prompts()
 
-    # 아직 메뉴 선택 분기(if/elif)는 만들지 않고,
-    # add_prompt()가 잘 동작하는지 확인하기 위한 임시 호출입니다.
     show_menu()
-    add_prompt(prompts)
-    print(f"\n현재 등록된 프롬프트 수: {len(prompts)}개")
-
+    show_list(prompts)  # 목록 조회 기능 테스트
 
 if __name__ == "__main__":
     main()
