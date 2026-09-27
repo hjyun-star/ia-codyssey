@@ -40,6 +40,10 @@ def get_default_prompts():
         },
     ]
 
+def print_categories():
+    """카테고리 목록을 번호와 함께 출력합니다."""
+    for idx, category in enumerate(CATEGORIES, start=1):
+        print(f"{idx}) {category}")
 
 def show_menu():
     """메인 메뉴를 화면에 출력합니다."""
@@ -66,8 +70,7 @@ def get_non_empty_input(prompt_message):
 def select_category():
     """미리 정의된 카테고리 중 선택하거나 직접 입력합니다."""
     print("\n카테고리 선택:")
-    for idx, category in enumerate(CATEGORIES, start=1):
-        print(f"{idx}) {category}")
+    print_categories()
     print(f"{len(CATEGORIES) + 1}) 직접 입력")
 
     choice = input("선택: ").strip()
@@ -119,8 +122,7 @@ def show_list(prompts):
 def show_by_category(prompts):
     """카테고리를 선택하면 해당 카테고리의 프롬프트만 출력합니다."""
     print("\n=== 카테고리별 조회 ===")
-    for idx, category in enumerate(CATEGORIES, start=1):
-        print(f"{idx}) {category}")
+    print_categories()
 
     choice = input("선택: ").strip()
     if not choice.isdigit() or not (1 <= int(choice) <= len(CATEGORIES)):
