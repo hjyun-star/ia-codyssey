@@ -184,11 +184,33 @@ def show_detail(prompts):
     print(prompt["content"])
     print("─" * 30)    
 
+def toggle_favorite(prompts):
+    """프롬프트 번호를 입력하여 즐겨찾기를 추가/해제합니다."""
+    print("\n=== 즐겨찾기 관리 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    show_list(prompts)
+    choice = input("\n프롬프트 번호 입력: ").strip()
+    if not choice.isdigit() or not (1 <= int(choice) <= len(prompts)):
+        print("잘못된 번호입니다.")
+        return
+
+    prompt = prompts[int(choice) - 1]
+    prompt["favorite"] = not prompt["favorite"]
+
+    if prompt["favorite"]:
+        print(f"\n'{prompt['title']}' 프롬프트를 즐겨찾기에 추가했습니다!")
+    else:
+        print(f"\n'{prompt['title']}' 프롬프트를 즐겨찾기에서 해제했습니다!")    
+
 def main():
     prompts = get_default_prompts()
 
     show_menu()
-    show_detail(prompts)  # 상세 보기 기능 테스트
+    toggle_favorite(prompts)  # 즐겨찾기 토글 기능 테스트
+    show_list(prompts)  # 변경된 즐겨찾기 상태 확인용
 
 
 if __name__ == "__main__":
