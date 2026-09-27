@@ -205,12 +205,27 @@ def toggle_favorite(prompts):
     else:
         print(f"\n'{prompt['title']}' 프롬프트를 즐겨찾기에서 해제했습니다!")    
 
+def show_favorites(prompts):
+    """즐겨찾기된 프롬프트만 모아서 출력합니다."""
+    print("\n=== 즐겨찾기 목록 ===")
+    favorites = [p for p in prompts if p["favorite"]]
+
+    if not favorites:
+        print("즐겨찾기한 프롬프트가 없습니다.")
+        return
+
+    for idx, prompt in enumerate(favorites, start=1):
+        print(f"{idx}. [{prompt['category']}] {prompt['title']} ⭐")
+    print(f"\n총 {len(favorites)}개의 즐겨찾기")
+
 def main():
     prompts = get_default_prompts()
 
     show_menu()
-    toggle_favorite(prompts)  # 즐겨찾기 토글 기능 테스트
-    show_list(prompts)  # 변경된 즐겨찾기 상태 확인용
+    show_favorites(prompts)  # 즐겨찾기 목록 테스트 (1) - 기본값 확인
+
+    # 기본 데이터 중 즐겨찾기(favorite: True)로 등록된 항목이 하나 있으므로,
+    # 위 호출만으로도 바로 확인 가능합니다.
 
 
 if __name__ == "__main__":
