@@ -159,11 +159,36 @@ def search_prompt(prompts):
         print(format_prompt_line(idx, prompt))
     print(f"\n{len(results)}개의 프롬프트를 찾았습니다.")
 
+def show_detail(prompts):
+    """프롬프트 번호를 입력하면 전체 내용을 출력합니다."""
+    print("\n=== 프롬프트 상세 보기 ===")
+    if not prompts:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    show_list(prompts)
+    choice = input("\n번호 입력: ").strip()
+    if not choice.isdigit() or not (1 <= int(choice) <= len(prompts)):
+        print("잘못된 번호입니다.")
+        return
+
+    prompt = prompts[int(choice) - 1]
+    star = "⭐" if prompt["favorite"] else "없음"
+
+    print("\n" + "─" * 30)
+    print(f"제목: {prompt['title']}")
+    print(f"카테고리: {prompt['category']}")
+    print(f"즐겨찾기: {star}")
+    print("─" * 30)
+    print("내용:")
+    print(prompt["content"])
+    print("─" * 30)    
+
 def main():
     prompts = get_default_prompts()
 
     show_menu()
-    search_prompt(prompts)  # 검색 기능 테스트
+    show_detail(prompts)  # 상세 보기 기능 테스트
 
 
 if __name__ == "__main__":
