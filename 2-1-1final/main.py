@@ -116,11 +116,36 @@ def show_list(prompts):
     print(f"\n총 {len(prompts)}개의 프롬프트")
 
 
+def show_by_category(prompts):
+    """카테고리를 선택하면 해당 카테고리의 프롬프트만 출력합니다."""
+    print("\n=== 카테고리별 조회 ===")
+    for idx, category in enumerate(CATEGORIES, start=1):
+        print(f"{idx}) {category}")
+
+    choice = input("선택: ").strip()
+    if not choice.isdigit() or not (1 <= int(choice) <= len(CATEGORIES)):
+        print("잘못된 번호입니다.")
+        return
+
+    selected_category = CATEGORIES[int(choice) - 1]
+    filtered = [p for p in prompts if p["category"] == selected_category]
+
+    print(f"\n[{selected_category}] 카테고리 프롬프트:")
+    if not filtered:
+        print("해당 카테고리에 프롬프트가 없습니다.")
+        return
+
+    for idx, prompt in enumerate(filtered, start=1):
+        star = " ⭐" if prompt["favorite"] else ""
+        print(f"{idx}. {prompt['title']}{star}")
+    print(f"\n총 {len(filtered)}개의 프롬프트")
+
 def main():
     prompts = get_default_prompts()
 
     show_menu()
-    show_list(prompts)  # 목록 조회 기능 테스트
+    show_by_category(prompts)  # 카테고리별 조회 기능 테스트
+
 
 if __name__ == "__main__":
     main()
