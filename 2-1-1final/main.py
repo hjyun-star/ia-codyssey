@@ -140,11 +140,30 @@ def show_by_category(prompts):
         print(f"{idx}. {prompt['title']}{star}")
     print(f"\n총 {len(filtered)}개의 프롬프트")
 
+def search_prompt(prompts):
+    """제목 또는 내용에 키워드가 포함된 프롬프트를 검색합니다."""
+    print("\n=== 프롬프트 검색 ===")
+    keyword = get_non_empty_input("검색어: ")
+
+    results = [
+        p for p in prompts
+        if keyword in p["title"] or keyword in p["content"]
+    ]
+
+    print("\n검색 결과:")
+    if not results:
+        print("검색 결과가 없습니다.")
+        return
+
+    for idx, prompt in enumerate(results, start=1):
+        print(format_prompt_line(idx, prompt))
+    print(f"\n{len(results)}개의 프롬프트를 찾았습니다.")
+
 def main():
     prompts = get_default_prompts()
 
     show_menu()
-    show_by_category(prompts)  # 카테고리별 조회 기능 테스트
+    search_prompt(prompts)  # 검색 기능 테스트
 
 
 if __name__ == "__main__":
