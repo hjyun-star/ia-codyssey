@@ -221,11 +221,29 @@ def show_favorites(prompts):
 def main():
     prompts = get_default_prompts()
 
-    show_menu()
-    show_favorites(prompts)  # 즐겨찾기 목록 테스트 (1) - 기본값 확인
+    while True:
+        show_menu()
+        choice = input("선택: ").strip()
 
-    # 기본 데이터 중 즐겨찾기(favorite: True)로 등록된 항목이 하나 있으므로,
-    # 위 호출만으로도 바로 확인 가능합니다.
+        if choice == "1":
+            add_prompt(prompts)
+        elif choice == "2":
+            show_list(prompts)
+        elif choice == "3":
+            show_by_category(prompts)
+        elif choice == "4":
+            search_prompt(prompts)
+        elif choice == "5":
+            show_detail(prompts)
+        elif choice == "6":
+            toggle_favorite(prompts)
+        elif choice == "7":
+            show_favorites(prompts)
+        elif choice == "0":
+            print("\n프로그램을 종료합니다.")
+            break
+        else:
+            print("\n잘못된 번호입니다. 다시 선택해주세요.")
 
 
 if __name__ == "__main__":
